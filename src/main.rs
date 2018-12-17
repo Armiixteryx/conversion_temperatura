@@ -53,5 +53,18 @@ fn main() {
             },
         };
 
+        if readline == 1 {
+            println!("{} °C a °F son: {}", cantidad, celsius(cantidad));
+        } else if readline == 2 {
+            println!("{} °F a °C son: {}", cantidad, fahrenheit(cantidad));
+        }
 	}
+}
+
+fn celsius(f: f64) -> f64 {
+    5.0 * (f - 32.0) / 9.0
+}
+
+fn fahrenheit(c: f64) -> f64 {
+    (9.0 * c / 5.0) + 32.0
 }
