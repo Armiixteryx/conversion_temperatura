@@ -34,5 +34,24 @@ fn main() {
         if readline == 3 {
             break;
         }
+
+        let cantidad = rl.readline("Introduce la cantidad que deseas convertir: ");
+
+        let cantidad = match cantidad {
+            Ok(line) => line,
+            Err(err) => {
+                println!("Un error ha ocurrido: {:?}", err);
+                break
+            },
+        };
+
+        let cantidad = match cantidad.trim().parse::<f64>() {
+            Ok(num) => num,
+            Err(_) => {
+                println!("No es un número");
+                break
+            },
+        };
+
 	}
 }
