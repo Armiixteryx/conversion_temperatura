@@ -1,25 +1,24 @@
 extern crate rustyline;
 
-use rustyline::error::ReadlineError;
 use rustyline::Editor;
 
 fn main() {
-	let mut rl = Editor::<()>::new();
+    let mut rl = Editor::<()>::new();
 
-	loop {
-		println!("🌡 TRANSFORMADOR DE TEMPERATURA 🌡");
-		println!("Introduce tu opción:");
-		println!("1. Celsius a Fahrenheit.");
-		println!("2. Fahrenheit a Celsius.");
-		println!("3. Salir.");
+    loop {
+        println!("🌡 TRANSFORMADOR DE TEMPERATURA 🌡");
+        println!("Introduce tu opción:");
+        println!("1. Celsius a Fahrenheit.");
+        println!("2. Fahrenheit a Celsius.");
+        println!("3. Salir.");
 
         let readline = rl.readline("Tu opción: ");
 
         let readline = match readline {
             Ok(line) => line,
             Err(err) => {
-                println!("An error has ocurred: {:?}", err);
-                break
+                println!("Un error ha ocurrido: {:?}", err);
+                break;
             }
         };
 
@@ -27,13 +26,21 @@ fn main() {
             Ok(num) => num,
             Err(_) => {
                 println!("No es un número");
-                continue
+                rl.readline("Presiona ENTER para continuar.").unwrap();
+                continue;
             }
         };
 
         if readline == 3 {
+            println!("\nAdios.");
             break;
+        } else if readline < 1 || readline > 3 {
+            println!("Has elegido una opción no válida.");
+            rl.readline("Presiona ENTER para continuar.").unwrap();
+            continue;
         }
+
+        println!("");
 
         let cantidad = rl.readline("Introduce la cantidad que deseas convertir: ");
 
@@ -41,16 +48,17 @@ fn main() {
             Ok(line) => line,
             Err(err) => {
                 println!("Un error ha ocurrido: {:?}", err);
-                break
-            },
+                break;
+            }
         };
 
         let cantidad = match cantidad.trim().parse::<f64>() {
             Ok(num) => num,
             Err(_) => {
                 println!("No es un número");
-                break
-            },
+                rl.readline("Presiona ENTER para continuar.").unwrap();
+                break;
+            }
         };
 
         if readline == 1 {
@@ -58,7 +66,10 @@ fn main() {
         } else if readline == 2 {
             println!("{} °F a °C son: {}", cantidad, fahrenheit(cantidad));
         }
-	}
+
+        rl.readline("Presiona ENTER para continuar.").unwrap();
+        println!("");
+    }
 }
 
 fn celsius(f: f64) -> f64 {
