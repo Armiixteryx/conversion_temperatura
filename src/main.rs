@@ -23,7 +23,15 @@ fn main() {
             }
         };
 
-        if readline == "3" {
+        let readline = match readline.trim().parse::<u32>() {
+            Ok(num) => num,
+            Err(_) => {
+                println!("No es un número");
+                continue
+            }
+        };
+
+        if readline == 3 {
             break;
         }
 	}
